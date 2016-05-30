@@ -1,0 +1,585 @@
+﻿
+@{
+    ViewBag.Title = "exam1";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+<script src="~/Content/angular.min.js"></script>
+<h2>exam1</h2>
+
+@* ví dụ angularjs đầu tiên *@
+@*<div ng-app="myapp">
+    <div ng-controller="HeaderController">
+        <h2>Xin chào {{data.title}} đến với website {{data.website}} !</h2>
+    </div>
+    <div ng-controller="ContentController">
+        <h2>Tôi tên là {{data.name}} năm sinh: {{data.year}}</h2>
+    </div>
+    <script>
+        angular.module("myapp", []).controller("HeaderController", function ($scope) {
+            $scope.data = {
+                title: 'các bạn',
+                website:'tuhoclaptrinh.net'
+            };
+        }).controller("ContentController", function ($scope) {
+            $scope.data = {
+                name: 'Nguyễn Đức Tài',
+                year: '1989'
+            };
+        })
+    </script>
+</div>*@
+
+@* ví dụ nhập vào textbox nhấn button thì xuất ra kết quả... *@
+@*<div ng-app="myapp2">
+    <div ng-controller="MyController">
+        Nhập tên của bạn:
+        <input type="text" ng-model="username" value=" " />
+        <button ng-click='sayHello()'>In thông báo</button>
+        <hr />
+        {{greeting}}
+    </div>
+    <script>
+        angular.module('myapp2', [])
+        .controller('MyController', ['$scope', function ($scope) {
+            $scope.sayHello = function () {
+                $scope.greeting = 'xin chào' + $scope.username + '!';
+            };
+        }]);
+    </script>
+</div>*@
+
+@* ví dụ về $rootScope *@
+@*<div ng-app="myapp3">
+    <div ng-controller="oneController">
+        <h2>hello: {{name}}</h2>
+    </div>
+    <div ng-controller="twoController">
+        <h2>Xin chào: {{name}}</h2>
+    </div>
+    <script>
+        angular.module("myapp3", []).controller('oneController', function ($scope, $rootScope) {
+            $rootScope.name = 'world';
+        }).controller('twoController', function ($scope) {
+
+        });
+    </script>
+</div>*@
+
+@* ví dụ về $scope lồng nhau... *@
+@*<style>
+    .Show-Border .ng-scope {
+        border: 3px solid green;
+    }
+
+        .Show-Border .ng-scope .ng-scope {
+            border: 3px dotted blue;
+        }
+</style>
+<div ng-app="myapp4">
+    <div class="Show-Border">
+        <div ng-controller="topController">
+            <div ng-controller="leftController">
+                giá trị nhập vào: {{value}}
+            </div>
+            <div ng-controller="rightController">
+                kết quả: {{value}}
+            </div>
+        </div>
+    </div>
+    <script>
+        angular.module("myapp4", []).controller('topController', function ($scope) {
+            $scope.value = 'hello world';
+        }).controller('leftController', function ($scope) {
+
+        }).controller('rightController', function ($scope) {
+
+        });
+    </script>
+</div>*@
+
+@*nhập vào text box xuât ra thẻ span  *@
+@*<div ng-app="myapp5">
+    <div ng-controller="exam5">
+        Mời bạn nhập giá trị:
+        <input type="text" ng-model="name" value=" " />
+        Giá trị bạn vừa nhập là: 
+        <span ng-bind="name"></span>
+    </div>
+    <script>
+        angular.module("myapp5", []).controller('exam5', function ($scope) {
+            $scope.name = 'xin chào các bạn';
+        });
+    </script>
+</div>*@
+
+@* định nghĩa directive *@
+@*<style>
+    .ShowBorder .ng-scope {
+        border: 3px solid green;
+    }
+
+    .ShowBorder .ng-scope .ng-scope {
+        border: 3px dotted blue;
+    }
+</style>
+
+<div ng-app="myapp6">
+    <div class="ShowBorder">
+        <div ng-controller="myapp6Controller">
+            <div my-direc>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    angular.module("myapp6", []).controller('myapp6Controller', function ($scope) {
+
+    }).directive('myDirec', function () {
+        return {
+            template: '<h1>hello world111</h1>'
+        };
+    });
+</script>*@
+
+@*ví dụ vê ng-partern*@
+
+@*<script>
+    angular.module("myapp7", [])
+                            .controller('myapp7Controller', ['$scope', function ($scope) {
+
+                            }]);
+</script>
+<style>
+    .my-input {
+        -webkit-transition: all linear 0.5s;
+        transition: all linear 0.5s;
+        background: transparent;
+    }
+
+        .my-input.ng-invalid {
+            color: white;
+            background: red;
+        }
+</style>
+<div ng-app="myapp7">
+        <form name="testForm" ng-controller="myapp7Controller">
+            <input type="text" name="anim" ng-model="val" required class="my-input" ng-pattern="/^[a-z]+$/" />
+        </form>
+</div>*@
+
+@* tính toán công trừ nhân chia*@
+@*<script>
+    angular.module('myapp8', [])
+    .controller('calController', ['$scope', function ($scope) {
+        //khởi tạo các giá trị ban đầu...
+        $scope.message = {
+            title: 'Trò chơi tính toán',
+            num1: 'Số thứ nhất',
+            num2: 'Số thứ hai',
+            phep_cong: 'Cộng hai số:',
+            phep_tru: 'Trừ hai số:',
+            phep_nhan: 'Nhân hai số:',
+            phep_chia: 'Chia hai số:'
+        };
+        $scope.styleresult = 'display:none';
+        $scope.show_result = function () {
+            if ($scope.calForm.$valid) {
+                $scope.styleresult = 'display:block';
+                $scope.result = {
+                    phep_cong: parseInt($scope.so_thu_1) + parseInt($scope.so_thu_2),
+                    phep_tru: parseInt($scope.so_thu_1) - parseInt($scope.so_thu_2),
+                    phep_nhan: parseInt($scope.so_thu_1) * parseInt($scope.so_thu_2),
+                    phep_chia: parseInt($scope.so_thu_1) / parseInt($scope.so_thu_2)
+                };
+            }
+            else
+            {
+                $scope.styleresult = 'display:none';
+            }
+        };
+    }]);
+</script>
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        padding: 20px;
+    }
+
+    .my-input {
+        -webkit-transition: all linear 0.5s;
+        transition: all linear 0.5s;
+        background: transparent;
+    }
+
+        .my-input.ng-invalid {
+            color: white;
+            background: red;
+        }
+</style>
+
+<div ng-app="myapp8">
+    <form name="calForm" ng-controller="calController">
+        <h2>{{message.title}}</h2>
+        <h5>{{message.num1}}</h5>
+        <input ng-model="so_thu_1" ng-required="true" ng-pattern="/^[0-9]+$/" class="my-input" ng-keyup="show_result()" />
+        <h5>{{message.num2}}</h5>
+        <input ng-model="so_thu_2" ng-required="true" ng-pattern="/^[0-9]+$/" class="my-input" ng-keyup="show_result()" />
+        <div style='{{styleresult}}'>
+            {{message.phep_cong}} {{result.phep_cong}}<br />
+            {{message.phep_tru}} {{result.phep_tru}}<br />
+            {{message.phep_nhan}} {{result.phep_nhan}}<br />
+            {{message.phep_chia}} {{result.phep_chia}}
+        </div>
+    </form>
+</div>*@
+
+
+@*ví dụ về ng-model có option debounce...*@
+@*<script>
+    angular.module('myapp9', []).controller('myapp9Controller', ['$scope', function ($scope) {
+
+    }]);
+</script>
+
+<div ng-app="myapp9">
+    <div ng-controller="myapp9Controller">
+        <form name="userForm" >
+            <h5>nhập nôi dung của bạn </h5>
+            <input type="text" name="UserName" ng-model-options="{debounce:2000}" ng-model="user.name" />
+            <h5>nọi dung của bạn vừa nhập là:</h5>
+            <span ng-bind="user.name"></span>
+        </form>
+    </div>
+</div>*@
+
+@* ví dụ ng- model có sử dụng option...*@
+@*<script>
+    angular.module('myapp10', []).controller('myapp10Controller', ['$scope', function ($scope) {
+
+    }]);
+</script>
+<style>
+    * {
+        margin: 0;
+    }
+
+    body {
+        padding: 20px;
+    }
+</style>
+<div ng-app="myapp10">
+    <div ng-controller="myapp10Controller">
+        <form name="userForm">
+            <h5>nhập nội dung của bạn:</h5>
+            <input type="text" name="UserName" ng-model-options="{updateOn:'blur'}" ng-model="user.name" /><br />
+            <h5>Nội dung của bạn vừa nhập là:</h5>
+            <span ng-bind="user.name"></span>
+        </form>
+    </div>
+</div>*@
+
+@*ví dụ về ng-model-options sử dụng gettersetter*@
+@*<script>
+    angular.module('myapp11', []).controller('myapp11Controller', ['$scope', function ($scope) {
+        var _name = 'chào bạn...';
+        $scope.user = {
+            name: function (NewName) {
+                return angular.isDefined(NewName) ? (_name = NewName) : _name;
+            }
+        };
+    }]);
+</script>
+<div ng-app="myapp11">
+    <div ng-controller="myapp11Controller">
+        <form name="userForm">
+            <h5>bạn hãy nhập giá trị:</h5>
+            <input type="text" name="UserName" ng-model-options="{getterSetter:true}" ng-model="user.name"  />
+            <h5>Giá trị của bạn nhập là:</h5>
+            <span ng-bind="user.name()"></span>
+        </form>
+    </div>
+</div>*@
+
+@*ví dụ về ng-bind-html kèm thêm thư viện phụ là sanitize*@
+@*<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular-sanitize.js"></script>
+<script>
+    angular.module('myapp12', ['ngSanitize'])
+    .controller('myapp12Controller', ['$scope', function ($scope) {
+    }]);
+</script>
+<div ng-app="myapp12">
+    <div ng-controller="myapp12Controller">
+        <input type="text" ng-model="myHTML"/>
+        <p ng-bind-html="myHTML"></p>
+    </div>
+</div>*@
+
+@*ví dụ về ng-form submit*@
+@*<script>
+    angular.module('myapp13', [])
+    .controller('myapp13Controller', ['$scope', function ($scope) {
+        $scope.list = [];
+        $scope.submit = function () {
+            if ($scope.text) {
+                $scope.list.push(this.text);
+                $scope.text = '';
+            }
+        };
+    }]);
+</script>
+<div ng-app="myapp13">
+    <form ng-submit="submit()" ng-controller="myapp13Controller" >
+        <input type="text" name="text" ng-model="text" />
+        <input type="submit" id="submit" value="nhập" /><br />
+        danh sách sinh viên: <pre>list={{list}}</pre>
+    </form>
+</div>*@
+
+@*ví dụ về input trong angularjs*@
+
+@*Bây giờ chúng ta sẽ làm một ví dụ nho nhỏ đó là xây dựng chức năng đăng nhập với hai thông tin nhập vào là tên đăng nhập và mật
+ khẩu. Các rule như sau:
+
+Nếu tên đăng nhập là admin và mật khẩu là 123456 thì thông báo là đăng nhập thành công, ngược lại thông báo đăng nhập thất bại.
+Với tên đăng nhập chỉ chấp nhận các ký tự chữ cái và số, bắt buộc nhập và sử dung ng-trim để xóa khoảng trắng và dài từ 3 đến 10
+ ký tự
+Với mật khẩu dài từ 3 đến 10 ký tự và dùng ng-trim để xóa khoảng trắng
+Nếu những quy tắc trên không thỏa thì các chữ label sẽ có màu đỏ (dùng css style cho class ng-invalid có color:red)*@
+
+@*<script>
+    angular.module('myapp14', []).controller('myapp14Controller', ['$scope', function ($scope) {
+        $scope.login = function () {
+            if ($scope.username == 'admin' && $scope.password == '123456')
+                alert("đăng nhập thành công...");
+            else
+                alert("đăng nhập thất bại...");
+        };
+    }]);
+</script>
+<style>.ng-invalid{color:red;}</style>
+<div ng-app="myapp14">
+    <form ng-controller="myapp14Controller" name="myForm" ng-submit="login()">
+        username:<br />
+        <input type="text" name="username" ng-model="username" ng-pattern="/^[a-zA-Z0-9]+$/" ng-minlength="3" ng-maxlength="10" ng-trim="true" required /><br />
+        password:<br />
+        <input type="text" name="password" ng-model="password" ng-pattern="" ng-maxlength="10" ng-minlength="3" ng-trim="true" required /><br />
+        <input type="submit" value="Login" />
+    </form>
+</div>*@
+
+@*ví dụ về checkbox trong angularjs...*@
+@*<script>
+    angular.module('myapp15', []).controller('myapp15Controller', ['$scope', function ($scope) {
+        $scope.game = 'không';
+        $scope.tour = 'không';
+    }]);
+</script>
+<div ng-app="myapp15">
+    <form name="myForm" ng-controller="myapp15Controller">
+        Chơi game:<input type="checkbox" name="game" ng-model="game" ng-false-value="'không'" ng-true-value="'có'" />
+        <br />
+        Du lịch: <input type="checkbox" name="tour" ng-model="tour" ng-false-value="'không'" ng-true-value="'có'" />
+        <h4>Bạn đang chọn:</h4><br />
+        Chơi game : {{game}}<br />
+        Du lịch: {{tour}}
+
+    </form>
+</div>*@
+@*ví dụ về ng-repeat trong angularjs*@
+@*<script>
+    angular.module('myapp16', []).controller('myapp16Controller', ['$scope', function ($scope) {
+        $scope.items = ['xin chào','hello','welcome'];
+    }]);
+</script>
+
+<div ng-app="myapp16">
+    <div ng-controller="myapp16Controller">
+        <div ng-repeat="item in items" style="border:solid 1px red; margin:10px">
+            {{item}}
+        </div>
+    </div>
+</div>*@
+
+
+@*<script>
+    angular.module('app17', []).controller('app17Controller', function ($scope, $http) {
+        var url = "@Url.Action("getJson1", "AngularJS")";
+        $http.get(url).then(function (response) {
+            alert(response.data + response.status +response.statusText);
+            $scope.listKH = response.data;
+        }, function myError(response) {
+            alert("aa");
+        });
+    });
+</script>
+        <style>
+            /**{margin:0;padding:0}
+            body{margin:20px;}     
+            div{height: 30px; line-height: 30px; padding: 0px 20px;}*/
+            .odd11{
+                background: red;
+                color:#FFF;
+            }
+            .even11{
+                background: blue;
+                color:#FFF;
+            }
+        </style>
+<div ng-app="app17" ng-controller="app17Controller">
+    <table>
+        <tr>
+            <th>Tên khách hàng</th>
+            <th>Địa chỉ</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+        </tr>
+        <tr ng-repeat="kh in listKH | orderBy:'Email'" ng-class-even="'even11'" ng-class-odd="'odd11'" >
+            <td>{{kh.TenKH | uppercase}}</td>
+            <td>{{kh.DiaChi}}</td>
+            <td>{{kh.Email }}</td>
+            <td>{{kh.SoDienThoai}}</td>
+        </tr>
+    </table>
+    <div>
+        <input type="checkbox" name="checkbox1" ng-model="disable" value="disable button" />
+        <input type="button" name="button1" ng-disabled="disable" value="check vào checkbox sẽ disable button" />
+        <br />
+        <input type="checkbox" name="checkbox2" ng-model="show" value="show button" />
+        <input type="button" name="button2" ng-show="show" value="check vào checkbox sẽ show button" />
+        <br />
+        <input type="checkbox" name="checkbox3" ng-model="hide" value="disable button" />
+        <input type="button" name="button3" ng-hide="hide" value="check vào checkbox sẽ hide button" />
+        <br />
+        <input type="text" name="textbox1" value="{{CountClick}}" />
+        <p>{{CountClick}}</p>
+        <input type="button" name="button4" ng-click="CountClick=CountClick+1" value="nhấn vào button" />
+        <br />
+    </div>
+</div>*@
+
+@*servicess kiểm tra số chản*@
+@*<script>
+    var app = angular.module('app', []);
+    app.controller('appCon', ['$scope', 'kiemtrasochan', function ($scope, kiemtrasochan) {
+        $scope.xuatthongbao = function () {
+            kiemtrasochan($scope.number);
+        };
+    }]);
+    //tạo service kiểm tra số chẳn...
+    app.service('kiemtrasochan', function ($window) {
+        return function (number) {
+            if(number%2==0)
+            {
+                $window.alert("số " + number + " là số chẳn...");
+            }
+        };
+    });
+</script>
+<div ng-app="app" ng-controller="appCon">
+    <p>Nhập vào số chẳn thì sẽ xuất thông báo</p>
+    <input type="text" name="so" ng-model="number" ng-change="xuatthongbao()" />
+</div>*@
+
+@* gọi service trong service khi hai service điều đươc tạo mới...*@
+<script>
+    var app = angular.module('app', []);
+    app.controller('appCon', ['$scope', 'validate', function ($scope, validate) {
+        $scope.xuatthongbao = function () {
+            validate($scope.number);
+        };
+    }]);
+    app.service('validate', function ($window,kiemtrasochan) {
+        return function (number) {
+            if(kiemtrasochan(number))
+            {
+                $window.alert("số " + number + " là số chẳn");
+            }
+        };
+    });
+    app.service('kiemtrasochan', function () {
+        return function (number) {
+            return (number % 2 == 0);
+        };
+    });
+</script>
+<div ng-app="app" ng-controller="appCon">
+    <p>Nhập vào số chẳn thì sẽ xuất thông báo</p>
+    <input type="text" name="so" ng-model="number" ng-change="xuatthongbao()" />
+</div>
+
+
+
+
+@*------------------------------------------------------------------------------------------*@
+@*<script src="~/Scripts/angularjs/appAngluarJS.js"></script>
+<script src="~/Scripts/angularjs/sinhvienController.js"></script>
+<style>
+    table, th, td {
+        border: 1px solid grey;
+        border-collapse: collapse;
+        padding: 5px;
+    }
+
+        table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+</style>
+<div ng-app="appAngularjs" ng-controller="sinhvienController">
+    <form name="sinhvienForm">
+        <table border="1">
+            <tr>
+                <td>Nhập họ:</td>
+                <td>
+                    <input type="text" name="txtHo" ng-model="sinhvien.ho" required />
+                    <span style="color:red" ng-show="sinhvienForm.txtHo.$dirty && sinhvienForm.txtHo.$invalid">
+                        <span ng-show="sinhvienForm.txtHo.$error.required">Ho la bat buoc.</span>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>Nhập tên:</td>
+                <td><input type="text" name="txtTen" ng-model="sinhvien.ten" /></td>
+            </tr>
+            <tr>
+                <td>Họ và tên:</td>
+                <td>{{sinhvien.hoten()}}</td>
+            </tr>
+            <tr>
+                <td>Môn học:</td>
+                <td>
+                    <table border="1">
+                        <tr>
+                            <th>Tên</th>
+                            <th>Điểm</th>
+                        </tr>
+                        <tr ng-repeat="monhoc in sinhvien.tenmonhoc">
+                            <td>{{monhoc.ten}}</td>
+                            <td>{{monhoc.diemthi}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><button ng-click="reset()">Reset</button></td>
+                <td>
+                    <button ng-disabled="sinhvienForm.ho.$dirty && sinhvienForm.ho.$invalid"
+                            ng-click="submit()">
+                        Submit
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form> 
+</div>*@
+

@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Demo";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+<link href="~/Content/login/css/style_form_dangnhap.css" rel="stylesheet" />
+@*trang login*@
+
+
+<div style="height:500px">
+    <br />
+    <input type="button" value="Đăng nhập" id="btnDangNhap" class="btn btn-primary" />
+    @*Tạo 1 div bên ngoài chứa div login-form *@
+    <div id="popup_login">
+        <div class="login-form" id="login-form">
+            <div style="clear:both;text-align:right;margin-bottom:0;">
+                <span id="close-form" class="btn btn-danger">X</span>
+            </div>
+            <h2>Đăng nhập</h2>
+            <div class="form-info">
+                <form>
+                    <input class="email TaiKhoan" placeholder="Tên đăng nhập" required="" type="text">
+                    <input class="password MatKhau" placeholder="Mật khẩu" required="" type="password">
+                    <p><a href="#">Quên mật khẩu?</a></p>
+                    <ul class="login-buttons">
+                        <li><input value="Đăng nhập" type="submit" id="btnDangNhap1"></li>
+                        <li><a href="#" class="hvr-sweep-to-left">Đăng ký</a></li>
+
+                    </ul>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    #btnDangNhap {
+        float: left;
+    }
+
+    .content {
+        height: 500px;
+    }
+
+    #close-form {
+        color: white;
+    }
+
+
+    #login-form {
+        background: #3a3a46;
+        cursor: pointer;
+    }
+
+    /*css cho popup login*/
+    #popup_login{
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background-color:rgba(0,0,0,0.5);
+        z-index:99;
+        display:none;
+    }
+</style>
+
+<script type="text/javascript">
+    $("#btnDangNhap").click(function () {
+        $("#popup_login").toggle(3000);
+    });
+
+    $("#close-form").click(function () {
+        $("#popup_login").toggle(3000);
+    });
+
+    $("#btnDangNhap1").click(function () {
+        var tk = $(".TaiKhoan").val();
+        var mk = $(".MatKhau").val();
+        alert("Tài Khoản: "+tk+" Mật khẩu: "+mk);
+    });
+
+</script>
+
+
+@*css*@
+
+<style>
+    #Content{
+        height:500px;
+    }
+    .title {
+        font-size: 15pt;
+        font-family: 'Segoe UI';
+        font-weight: bold;
+        color: white;
+    }
+    .Logo {
+        border-radius: 10%;
+        height: 100px;
+        background-color: green;
+        background-image: url("../Content/images/Home2.ico");
+        background-repeat: no-repeat;
+        background-position: center right;
+        padding-top: 30px;
+        padding-left: 30px;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+        .Logo:hover {
+            border-radius:10%;
+            height: 100px;
+            background-color: red;
+            background-image: url("../Content/images/Home2.ico");
+            background-repeat: no-repeat;
+            background-position: center left;
+            padding-top: 0px;
+            padding-left: 30px;
+            transition: 0.5s;
+            opacity: .5;
+            box-shadow: inset 5px 5px 10px white,inset -5px -5px 10px white;
+        }
+</style>
+@*<div id="Content">
+    @*sử dụng bootstrap*@
+@*<div class="row">
+            <div class="col-md-2">
+                <div class="Logo">
+                    <span class="title">Home</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="Logo">
+                    <span class="title">Home</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="Logo">
+                    <span class="title">Home</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="Logo">
+                    <span class="title">Home</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="Logo">
+                    <span class="title">Home</span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="Logo">
+                    <span class="title">Home</span>
+                </div>
+            </div>
+
+        </div>
+    </div>*@

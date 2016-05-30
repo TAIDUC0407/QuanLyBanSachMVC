@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "getJson";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+    //Layout = null;
+}
+
+<h2>getJson</h2>
+
+<script type="text/javascript">
+    $(function () {
+        var url = "@Url.Action("getJson1", "AngularJS")";
+        $.getJSON(url, null, function (data) {
+            alert(data.TenNSX);
+        });
+    });
+</script>

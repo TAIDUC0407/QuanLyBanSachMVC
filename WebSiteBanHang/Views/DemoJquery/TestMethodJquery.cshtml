@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "TestMethodJquery";
+    Layout = "~/Views/Layout/AdminLayout.cshtml";
+}
+
+<h2>TestMethodJquery</h2>
+
+<div class="xyz" data-giatri="class1">//goi ra day
+    <input type="text" class="test" value="GiaTriDung" data-id="1" />find vao day
+    <input type="text" class="test" value="GiaTriDung" data-id="2" />find vao day
+    <input type="text" class="test" value="GiaTriDung" data-id="3" />find vao day
+    <input type="button" class="btnClick" value="Add row" /> 
+</div>
+
+<div class="xyz">
+    <input type="text" class="test" data-giatri="class6666" />
+    <input type="text" class="test" data-giatri="class6666" />
+    <input type="text" class="test" data-giatri="class6666" />
+    <input type="button" class="btnClick" value="Add row" />
+</div>
+<div style="width: 170px;">
+    </div>
+
+<script>
+    $(".btnClick").click(function(){
+        //từ button gọi lên class li của chính sản phẩm đó tính từ button đo( phan biet voi cac button khac)
+        var giatri = $(this).closest(".xyz").find(".test");
+        $(".test").each(function () {
+            var giatriid = $(this).attr("data-id");
+            if (giatriid == "3")
+            {
+                $(this).val(4);
+            }
+        });
+        alert(giatri);
+        //find tim den the phia trong class.celwidget
+    });
+    //cách 1:
+    $("#btnXuatThongBao").click(function () {
+        //var noidung = $(".test").val();
+        //alert(noidung);
+
+        //var noidung = $(".abc").find(".test").attr("data-giatri");
+        //alert(noidung);
+
+        //$(".abc").prepend("<input>");
+
+        $(".test").each(function () {
+            var noidung = $(this).text();
+            alert(noidung);
+        });
+
+    });
+
+    ////cách 2:
+    //$("body").delegate("#btnXuatThongBao", "click", function () {
+    //    var noidung = $(".test").val();
+    //    alert(noidung);
+    //});
+
+    ////cách 3:
+    //$("body").on("click", "#btnXuatThongBao", function () {
+    //    var noidung = $(".test").val();
+    //    alert(thongbao);
+    //});
+</script>

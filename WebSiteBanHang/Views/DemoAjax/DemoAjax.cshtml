@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "DemoAjax";
+    Layout = "~/Views/Layout/HomeLayout.cshtml";
+}
+
+<h2>DemoAjax</h2>
+
+@*load ajax bằng cách 1 sử dụng ajax.actionlink*@
+@Ajax.ActionLink("load ajax", "LoadAjaxActionLink", new AjaxOptions {HttpMethod="GET", UpdateTargetId="KetQua", InsertionMode=InsertionMode.InsertAfter, LoadingElementId="divLoading" })
+
+
+@*load ajax bằng cách 2 sử dụng ajax.BeginForm*@
+@using (Ajax.BeginForm("LoadAjaxBeginForm", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "KetQua", InsertionMode = InsertionMode.InsertAfter, LoadingElementId="divLoading"}))
+{
+    <input type="text" name="txtKetQua" />
+    <input type="submit" value="Submit" />
+}
+
+@*load ajax bằng cách 3 sử dụng AJAX JQUERY *@
+<input type="button" id="button" name="button" value="LoadAjaxJquery" />
+
+
+
+<div id="divLoading" style="display:none;">
+    <img src="~/Content/images/loading/loading25.gif" />
+</div>
+
+
+<div id="KetQua" style="height:150px;">
+    Đây là kết quả trả về...<br />
+</div>
+
+
+<script>
+    $("#button").click(function () {
+        $('#divLoading').show();
+        $.ajax({
+            type: 'GET',
+            data: { a: 1, b: 2 },
+            url: 'LoadAjaxJquery',
+            success: function (ketqua) {
+                $('#divLoading').hide();
+                $('#KetQua').html(ketqua);
+            }
+        })
+    })
+</script>

@@ -1,0 +1,67 @@
+﻿@using WebSiteBanHang.Models
+@model IEnumerable<SanPham>
+
+@{
+    //bước 1:
+    int iDem = 0;//đếm số lượng sản phẩm trên trang...
+    int iSLSanPhamTrenTrang = 6;//số lượng sản phẩm trên 1 trang...
+    int iTrang = 1;   //số trang...
+}
+<div class="col-md-9 product1">
+    <div class=" bottom-product">
+        @foreach (var item in Model.OrderBy(n => n.DonGia))
+        {
+            if (iDem % iSLSanPhamTrenTrang == 0 && iDem!=0)
+            {
+                iTrang++; 
+            }
+            <div class="@Url.Content("col-md-4 bottom-cd simpleCart_shelfItem Trang"+iTrang.ToString())">
+                <div class="product-at ">
+                    <a href="single.html">
+                        <img class="img-responsive" src="@Url.Content("~/Content/HinhAnhSP/"+item.HinhAnh)" alt="">
+                        <div class="pro-grid">
+                            <span class="buy-in">Đặt mua</span>
+                        </div>
+                    </a>
+                </div>
+                <p class="tun">@item.TenSP</p>
+                @*the a nut them*@
+                <a href="@Url.Action("ThemGioHang", "GioHang", new {@MaSP=item.MaSP,@strURL=Request.Url.ToString() })" class="item_add"><p class="number item_price"><i> </i>@item.DonGia.Value.ToString("#,##") vnđ</p></a>
+                @*Thêm giỏ hàng bằng ajax*@
+                @Ajax.ActionLink("Thêm giỏ hàng ajax", "ThemGioHangAJax", "GioHang", new { @MaSP = item.MaSP, @strURL = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, null)
+            </div>
+            iDem++;
+        }
+        <div class="clearfix"> </div>
+    </div>
+    <div class="Trang">
+        @for (int i = 1; i <= iTrang; i++)
+        {
+            <a class="linkTrang" data-sotrang="@Url.Content("Trang"+i)" href="#">@i</a>
+        }
+    </div>
+
+</div>
+@*bước 2: cho Tất cả các trang ẩn hết...và chỉ cho trang 1 hiện...*@
+<style>
+    .simpleCart_shelfItem {
+        display:none;
+    }
+    .Trang1{
+        display:block;
+    }
+</style>
+@*bước 3: xử lý khi click vào link trang nào thì show sản phẩm trang đó...*@
+<script>
+    $(".linkTrang").click(function () {
+        //cho tất cả các trang ẩn đi...
+        $(".simpleCart_shelfItem").hide();
+        //lấy ra số trang từ thẻ a...
+        var SoTrang = $(this).attr("data-sotrang");
+        //gọi những class nào thuộc số trang đó thì hiển thị...
+        $("." + SoTrang).show();
+    }); 
+</script>
+
+
+
